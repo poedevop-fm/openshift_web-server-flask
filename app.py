@@ -1,10 +1,11 @@
 from flask import Flask, render_template, session, redirect, url_for
-from flask_script import Manager
+from flask_script import Manager,Server
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_wtf import Form
 from wtforms import FloatField, SubmitField
 from wtforms.validators import InputRequired, DataRequired
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -39,6 +40,16 @@ def index():
         return redirect(url_for('index'))
     return render_template('index.html', form=form, result=session.get('result'))
 
+#version formateur :
+# if __name__ == '__main__':
+#     #'runserver' appel les parametres "Server(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))"
+#     #le tout est anvoyé à la commande "manager.add" qui sera utilisée par "manager.run"
+#     manager.add_command('runserver', Server(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))))
+#     manager.run()
+#fin version formateur
 
+#version pedro
 if __name__ == '__main__':
-    manager.run()
+    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
+
+#fin version pedro
